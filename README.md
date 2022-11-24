@@ -1,2 +1,2 @@
 # samples
-A collection of Krakens examples and demos.
+A collection of WebF examples and demos.
