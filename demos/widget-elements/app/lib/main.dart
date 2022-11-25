@@ -6,6 +6,7 @@ import 'custom_elements/action_sheet.dart';
 import 'custom_elements/button.dart';
 import 'custom_elements/image_viewer.dart';
 import 'custom_elements/round_loading_button.dart';
+import 'custom_elements/cell.dart';
 
 void main() {
   WebFWebSocket.initialize();
@@ -14,6 +15,7 @@ void main() {
   WebF.defineCustomElement('flutter-button', (context) => FlutterButton(context));
   WebF.defineCustomElement('flutter-image-viewer', (context) => FlutterImageViewerElement(context));
   WebF.defineCustomElement('flutter-round-loading-button', (context) => FlutterRoundLoadingButtonElement(context));
+  WebF.defineCustomElement('flutter-cell', (context) => FlutterCell(context));
   runApp(const MyApp());
 }
 

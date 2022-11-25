@@ -17,6 +17,11 @@ const router = createRouter({
       path: '/action-sheet-child',
       component: () => 
         import(/* webpackChunkName: "action-sheet-child" */ "../views/Action-Sheet/ActionSheetChild.vue"),
+    },
+    {
+      path: '/cell',
+      component: () => 
+        import(/* webpackChunkName: "cell" */ "../views/Cell/Cell.vue"),
     }
   ],
 });

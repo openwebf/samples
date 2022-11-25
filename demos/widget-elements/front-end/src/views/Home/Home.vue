@@ -4,6 +4,7 @@
   <ul>
     <li @click="this.$router.push('/action-sheet')">Flutter Action Sheet With Data</li>
     <li @click="this.$router.push('/action-sheet-child')">Flutter Action Sheet with Customize Contents</li>
+    <li @click="this.$router.push('/cell')">Flutter Cell</li>
   </ul>
 </template>
 
