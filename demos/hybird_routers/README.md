@@ -2,7 +2,11 @@
 
 This demo shows how to integrate the Flutter navigation system with Vue-router in WebF.
 
-<video src="imgs/routing.mov" show-controls></video>
+
+
+https://github.com/openwebf/samples/assets/4409743/06bffeb1-1195-4212-b8db-42aae89490da
+
+
 
 ## How to run this demo
 
