@@ -2,7 +2,9 @@
 
 This demo shows how to integrate any Flutter widgets and use them in Vue apps.
 
-<video src="video/record.mov" show-controls></video>
+
+https://github.com/openwebf/samples/assets/4409743/78a99997-4bf9-462c-884b-2cacec8aab56
+
 
 ## How to run this demo
 
