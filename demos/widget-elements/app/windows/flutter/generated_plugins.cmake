@@ -3,7 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  connectivity_plus_windows
+  webf
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

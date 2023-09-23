@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:webf/webf.dart';
-import 'package:webf_websocket/webf_websocket.dart';
-
 import 'custom_elements/action_sheet.dart';
 import 'custom_elements/button.dart';
 import 'custom_elements/image_viewer.dart';
@@ -9,12 +7,15 @@ import 'custom_elements/round_loading_button.dart';
 import 'custom_elements/cell.dart';
 
 void main() {
-  WebFWebSocket.initialize();
   HttpCacheController.mode = HttpCacheMode.NO_CACHE;
-  WebF.defineCustomElement('flutter-action-sheet', (context) => FlutterActionSheetElement(context));
-  WebF.defineCustomElement('flutter-button', (context) => FlutterButton(context));
-  WebF.defineCustomElement('flutter-image-viewer', (context) => FlutterImageViewerElement(context));
-  WebF.defineCustomElement('flutter-round-loading-button', (context) => FlutterRoundLoadingButtonElement(context));
+  WebF.defineCustomElement(
+      'flutter-action-sheet', (context) => FlutterActionSheetElement(context));
+  WebF.defineCustomElement(
+      'flutter-button', (context) => FlutterButton(context));
+  WebF.defineCustomElement(
+      'flutter-image-viewer', (context) => FlutterImageViewerElement(context));
+  WebF.defineCustomElement('flutter-round-loading-button',
+      (context) => FlutterRoundLoadingButtonElement(context));
   WebF.defineCustomElement('flutter-cell', (context) => FlutterCell(context));
   runApp(const MyApp());
 }
@@ -65,17 +66,25 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    final MediaQueryData queryData = MediaQuery.of(context);
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      body: WebF(
-
-        bundle: WebFBundle.fromUrl('http://localhost:8082/'),
-      )
+    final Size viewportSize = queryData.size;
+    final AppBar appBar = AppBar(
+      title: const Text('Using Flutter widgets in WebF'),
     );
+    return Scaffold(
+        appBar: appBar,
+        body: WebF(
+          viewportWidth: viewportSize.width - queryData.padding.horizontal,
+          viewportHeight: viewportSize.height -
+              appBar.preferredSize.height -
+              queryData.padding.vertical,
+          bundle: WebFBundle.fromUrl('http://localhost:8080/'),
+        ));
   }
 }

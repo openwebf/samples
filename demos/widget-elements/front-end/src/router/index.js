@@ -21,7 +21,7 @@ const router = createRouter({
     {
       path: '/cell',
       component: () => 
-        import(/* webpackChunkName: "cell" */ "../views/Cell/Cell.vue"),
+        import(/* webpackChunkName: "cell" */ "../views/FlutterCell/FlutterCell.vue"),
     }
   ],
 });
