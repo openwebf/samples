@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+      .container {
+        margin: 64px 0 32px;
+        text-align: center;
+      }
+
+      .music_list {
+        display: flex;
+        justify-content: space-around;
+      }
+
+      .music_item {
+        padding: 10px 20px;
+        border: 1px solid #000;
+      }
+
+      .music_item_active {
+        background: hsl(30 100% 50%);
+      }
+
+      .music_menu {
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-around;
+      }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Simple Audio Player</h2>
+  <p>Click the following box to play the music</p>
+  <div class="music_list">
+    <div class="music_item" data-src="example.mp3">example.mp3</div>
+    <div class="music_item" data-src="example_2.mp3">example_2.mp3</div>
+  </div>
+
+  <div class="music_menu">
+    <div id="player_status"></div>
+    <div id="progress"><span> Progress: </span><span id="position">0</span>/<span id="duration">0</span></div>
+  </div>
+</div>
+
+<script>
+    const music_list = document.querySelector('.music_list');
+    const player_status_ui = document.querySelector('#player_status');
+    const position_ui = document.querySelector('#position');
+    const duration_ui = document.querySelector('#duration');
+
+    let currentActiveItem = null;
+    music_list.addEventListener('click', async (e) => {
+      const musicPath = e.target.dataset.src;
+      const musicItem = e.target;
+
+      if (musicItem == currentActiveItem) {
+        await window.audioPlayer.pause();
+        currentActiveItem.classList.remove('music_item_active');
+        currentActiveItem = null;
+        return;
+      }
+
+      for (let i = 0; i < music_list.children.length; i ++) {
+        music_list.children[i].classList.remove('music_item_active');
+      }
+
+      musicItem.classList.add('music_item_active');
+      await window.audioPlayer.play(musicPath);
+      currentActiveItem = musicItem;
+    });
+
+    window.audioPlayer.onDurationChanged = (duration) => {
+      duration_ui.textContent = duration.toString();
+    };
+
+    window.audioPlayer.onPositionChanged = (position) => {
+      position_ui.textContent = position.toString();
+    };
+
+    window.audioPlayer.onPlayerStateChanged = (playerState) => {
+      player_status_ui.textContent = playerState;
+    }
+</script>
+</body>
+</html>
