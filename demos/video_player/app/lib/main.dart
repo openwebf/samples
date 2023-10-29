@@ -11,10 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 import 'package:webf/webf.dart';
-import 'package:webf_websocket/webf_websocket.dart';
 
 void main() {
-  WebFWebSocket.initialize();
   WebF.defineCustomElement(
       'video-player', (context) => VideoPlayerElement(context));
 
@@ -221,19 +219,22 @@ class _WebFRemoteVideo extends StatefulWidget {
   State<StatefulWidget> createState() => _WebFRemoteVideoState();
 }
 
-class _WebFRemoteVideoState extends State<_WebFRemoteVideo> {
+class _WebFRemoteVideoState extends State<_WebFRemoteVideo> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
     final MediaQueryData queryData = MediaQuery.of(context);
     return WebF(
       viewportWidth: queryData.size.width,
       viewportHeight: 700,
-      bundle: WebFBundle.fromUrl('http://172.20.10.3:8080/'),
+      bundle: WebFBundle.fromUrl('http://192.168.50.33:8080'),
     );
   }
 }
 
-class _BumbleBeeRemoteVideoState extends State<_BumbleBeeRemoteVideo> {
+class _BumbleBeeRemoteVideoState extends State<_BumbleBeeRemoteVideo> with AutomaticKeepAliveClientMixin {
   late VideoPlayerController _controller;
 
   Future<ClosedCaptionFile> _loadCaptions() async {
@@ -291,6 +292,9 @@ class _BumbleBeeRemoteVideoState extends State<_BumbleBeeRemoteVideo> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class _ControlsOverlay extends StatelessWidget {
