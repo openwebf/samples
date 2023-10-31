@@ -229,7 +229,7 @@ class _WebFRemoteVideoState extends State<_WebFRemoteVideo> with AutomaticKeepAl
     return WebF(
       viewportWidth: queryData.size.width,
       viewportHeight: 700,
-      bundle: WebFBundle.fromUrl('http://192.168.50.33:8080'),
+      bundle: WebFBundle.fromUrl('http://10.143.16.81:8080/'),
     );
   }
 }
@@ -507,7 +507,7 @@ class VideoPlayerElement extends WidgetElement {
     methods['seekTo'] = AsyncBindingObjectMethod(call: (args) async {
       _controller.seekTo(Duration(seconds: args[0]));
     });
-    methods['getPosition'] = AsyncBindingObjectMethod(call: (args) async {
+    methods['getPosition'] = BindingObjectMethodSync(call: (args) async {
       Duration? position = await _controller.position;
       if (position != null) {
         return position.inSeconds;
@@ -519,8 +519,11 @@ class VideoPlayerElement extends WidgetElement {
   String get remoteUrl => getAttribute('src') ?? '';
 
   @override
-  void initializeAttributes(Map<String, ElementAttributeProperty> attributes) {
-    super.initializeAttributes(attributes);
+  void initializeProperties(Map<String, BindingObjectProperty> properties) {
+    super.initializeProperties(properties);
+    properties['src'] = BindingObjectProperty(getter: () => getAttribute('src'), setter: (src) {
+      setAttribute('src', src);
+    });
   }
 
   @override
