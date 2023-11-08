@@ -7,12 +7,22 @@
 /// An example of using the plugin, controlling lifecycle and playback of the
 /// video.
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
+import 'package:video_player_media_kit/video_player_media_kit.dart';
 import 'package:webf/webf.dart';
 
 void main() {
+  VideoPlayerMediaKit.ensureInitialized(
+    android: Platform.isAndroid,
+    iOS: Platform.isIOS,
+    macOS: Platform.isMacOS,
+    windows: Platform.isWindows,
+    linux: Platform.isLinux,
+  );
+
   WebF.defineCustomElement(
       'video-player', (context) => VideoPlayerElement(context));
 
@@ -219,7 +229,8 @@ class _WebFRemoteVideo extends StatefulWidget {
   State<StatefulWidget> createState() => _WebFRemoteVideoState();
 }
 
-class _WebFRemoteVideoState extends State<_WebFRemoteVideo> with AutomaticKeepAliveClientMixin {
+class _WebFRemoteVideoState extends State<_WebFRemoteVideo>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -234,7 +245,8 @@ class _WebFRemoteVideoState extends State<_WebFRemoteVideo> with AutomaticKeepAl
   }
 }
 
-class _BumbleBeeRemoteVideoState extends State<_BumbleBeeRemoteVideo> with AutomaticKeepAliveClientMixin {
+class _BumbleBeeRemoteVideoState extends State<_BumbleBeeRemoteVideo>
+    with AutomaticKeepAliveClientMixin {
   late VideoPlayerController _controller;
 
   Future<ClosedCaptionFile> _loadCaptions() async {
@@ -521,9 +533,11 @@ class VideoPlayerElement extends WidgetElement {
   @override
   void initializeProperties(Map<String, BindingObjectProperty> properties) {
     super.initializeProperties(properties);
-    properties['src'] = BindingObjectProperty(getter: () => getAttribute('src'), setter: (src) {
-      setAttribute('src', src);
-    });
+    properties['src'] = BindingObjectProperty(
+        getter: () => getAttribute('src'),
+        setter: (src) {
+          setAttribute('src', src);
+        });
   }
 
   @override
