@@ -6,8 +6,6 @@ This demo shows how to use Flutter's video_player plugin to play videos in WebF 
 
 ## How to use
 
-> This demo only works on Android/iOS devices.
-
 Flutter version requirement: flutter 3.10.0
 
 1. Make sure your devices are in the same WIFI network with your computer.
