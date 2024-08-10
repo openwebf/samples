@@ -1,16 +1,19 @@
-# js_thread_mode
+# JSRuntime Thread Mode
 
-js thread mode demo
+This Demo shows the JSRuntime management in WebF with different threading modes. There are three threading models:
 
-## Getting Started
+1. Flutter UI Thread
+2. Different dedicated Thread (Different Dedicated threads are used for different WebFPage)
+3. Same dedicated Thread (Same Dedicated threads are used for different WebFPage)
 
-This project is a starting point for a Flutter application.
+For more information about Dedicated Thread Mode, see the [documentation](https://openwebf.com/docs/tutorials/performance_optimization/multiple_thread_mode/#sharing-a-single-thread-across-multiple-webf-instances)
 
-A few resources to get you started if this is your first Flutter project:
+And the Demo can test two ways to launch a new FlutterEngine:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. Create a FlutterEngine using FlutterEngineGroup
+2. Create a FlutterEngine directly
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+# How to use
+
+Just run it like a normal FLutter project
