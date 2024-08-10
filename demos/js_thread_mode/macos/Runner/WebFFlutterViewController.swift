@@ -1,4 +1,5 @@
-import UIKit
+import Cocoa
+import FlutterMacOS
 
 class WebFFlutterViewController: FlutterViewController {
     var deinitHandler: ((Int) -> Void)?

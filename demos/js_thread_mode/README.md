@@ -1,6 +1,6 @@
 # js_thread_mode
 
-A new Flutter project.
+js thread mode demo
 
 ## Getting Started
 
