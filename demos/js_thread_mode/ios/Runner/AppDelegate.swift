@@ -62,5 +62,6 @@ import UIKit
     private func destoryEngine(engineId: Int) {
         let flutterEngine = flutterEngines[engineId]
         flutterEngine?.destroyContext();
+        flutterEngines.removeValue(forKey: engineId)
     }
 }

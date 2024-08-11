@@ -111,6 +111,39 @@ class FirstPageState extends State<FirstPage> {
         },
         child: const Text('Same single thread'),
       ),
+      const SizedBox(height: 20),
+      ElevatedButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return WebFDemoTwoPage(
+                controller1: webFController(ThreadMode.differentDedicated),
+                controller2: webFController(ThreadMode.differentDedicated));
+          }));
+        },
+        child: const Text('Different dedicated thread (Two page)'),
+      ),
+      const SizedBox(height: 20),
+      ElevatedButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return WebFDemoTwoPage(
+                controller1: webFController(ThreadMode.sameDedicated),
+                controller2: webFController(ThreadMode.sameDedicated));
+          }));
+        },
+        child: const Text('Same dedicated thread (Two page)'),
+      ),
+      const SizedBox(height: 20),
+      ElevatedButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return WebFDemoTwoPage(
+                controller1: webFController(ThreadMode.sameSingle),
+                controller2: webFController(ThreadMode.sameSingle));
+          }));
+        },
+        child: const Text('Same single thread (Two page)'),
+      ),
     ];
 
     if (showNewEngineButton) {
@@ -179,5 +212,54 @@ class _WebFDemoState extends State<WebFDemo> {
           // in the middle of the parent.
           child: WebF(controller: widget.controller),
         ));
+  }
+}
+
+class WebFDemoTwoPage extends StatefulWidget {
+  final WebFController controller1;
+  final WebFController controller2;
+
+  const WebFDemoTwoPage({
+    super.key,
+    required this.controller1,
+    required this.controller2,
+  });
+
+  @override
+  _WebFDemoTwoPageState createState() => _WebFDemoTwoPageState();
+}
+
+class _WebFDemoTwoPageState extends State<WebFDemoTwoPage> {
+  @override
+  void dispose() {
+    widget.controller1.dispose();
+    widget.controller2.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('WebF Demo'),
+      ),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          double halfHeight = constraints.maxHeight / 2;
+          return Column(
+            children: [
+              SizedBox(
+                height: halfHeight,
+                child: WebF(controller: widget.controller1),
+              ),
+              SizedBox(
+                height: halfHeight,
+                child: WebF(controller: widget.controller2),
+              ),
+            ],
+          );
+        },
+      ),
+    );
   }
 }
