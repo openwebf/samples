@@ -9,17 +9,29 @@ import 'package:webf/devtools.dart';
 import 'package:webf/webf.dart';
 
 @pragma('vm:entry-point')
-void mainWithoutNewEngine() => runApp(MyApp(showNewEngineButton: false));
+void mainWithoutNewEngine() => runApp(MyApp(
+      showNewEngineButton: false,
+      disableDoublePage: false,
+    ));
+
+@pragma('vm:entry-point')
+void mainDoubleEngine() =>
+    runApp(MyApp(showNewEngineButton: false, disableDoublePage: true));
 
 void main() {
   runApp(MyApp(
     showNewEngineButton: true,
+    disableDoublePage: false,
   ));
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key, required this.showNewEngineButton});
+  MyApp(
+      {super.key,
+      required this.showNewEngineButton,
+      required this.disableDoublePage});
   bool showNewEngineButton = true;
+  bool disableDoublePage = false;
 
   // This widget is the root of your application.
   @override
@@ -29,20 +41,29 @@ class MyApp extends StatelessWidget {
       // theme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
       home: FirstPage(
-          title: 'Landing Bay', showNewEngineButton: showNewEngineButton),
+        title: 'Landing Bay',
+        showNewEngineButton: showNewEngineButton,
+        disableDoublePage: disableDoublePage,
+      ),
     );
   }
 }
 
 class FirstPage extends StatefulWidget {
   FirstPage(
-      {super.key, required this.title, required this.showNewEngineButton});
+      {super.key,
+      required this.title,
+      required this.showNewEngineButton,
+      required this.disableDoublePage});
   final String title;
-  final bool showNewEngineButton;
+  bool showNewEngineButton = true;
+  bool disableDoublePage = false;
 
   @override
   State<StatefulWidget> createState() {
-    return FirstPageState(showNewEngineButton: showNewEngineButton);
+    return FirstPageState(
+        showNewEngineButton: showNewEngineButton,
+        disableDoublePage: disableDoublePage);
   }
 }
 
@@ -53,10 +74,12 @@ enum ThreadMode {
 }
 
 class FirstPageState extends State<FirstPage> {
-  FirstPageState({required this.showNewEngineButton});
+  FirstPageState(
+      {required this.showNewEngineButton, required this.disableDoublePage});
 
   static const platform = MethodChannel('com.example.flutter/new_engine');
-  final bool showNewEngineButton;
+  bool showNewEngineButton = true;
+  bool disableDoublePage = false;
 
   DedicatedThreadGroup threadGroup = DedicatedThreadGroup();
 
@@ -111,8 +134,11 @@ class FirstPageState extends State<FirstPage> {
         },
         child: const Text('Same single thread'),
       ),
-      const SizedBox(height: 20),
-      ElevatedButton(
+    ];
+
+    if (disableDoublePage == false) {
+      buttons.add(const SizedBox(height: 20));
+      buttons.add(ElevatedButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return WebFDemoTwoPage(
@@ -120,10 +146,10 @@ class FirstPageState extends State<FirstPage> {
                 controller2: webFController(ThreadMode.differentDedicated));
           }));
         },
-        child: const Text('Different dedicated thread (Two page)'),
-      ),
-      const SizedBox(height: 20),
-      ElevatedButton(
+        child: const Text('Different dedicated thread (Double page)'),
+      ));
+      buttons.add(const SizedBox(height: 20));
+      buttons.add(ElevatedButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return WebFDemoTwoPage(
@@ -131,10 +157,10 @@ class FirstPageState extends State<FirstPage> {
                 controller2: webFController(ThreadMode.sameDedicated));
           }));
         },
-        child: const Text('Same dedicated thread (Two page)'),
-      ),
-      const SizedBox(height: 20),
-      ElevatedButton(
+        child: const Text('Same dedicated thread (Double page)'),
+      ));
+      buttons.add(const SizedBox(height: 20));
+      buttons.add(ElevatedButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return WebFDemoTwoPage(
@@ -142,11 +168,22 @@ class FirstPageState extends State<FirstPage> {
                 controller2: webFController(ThreadMode.sameSingle));
           }));
         },
-        child: const Text('Same single thread (Two page)'),
-      ),
-    ];
+        child: const Text('Same single thread (Double page)'),
+      ));
+    }
 
     if (showNewEngineButton) {
+      buttons.add(const SizedBox(height: 20));
+      buttons.add(ElevatedButton(
+        onPressed: () async {
+          try {
+            await platform.invokeMethod('newDoubleEngine');
+          } on PlatformException catch (e) {
+            print("Failed to create engine: '${e.message}'.");
+          }
+        },
+        child: const Text('Double Engine（supported iOS）'),
+      ));
       buttons.add(const SizedBox(height: 20));
       buttons.add(ElevatedButton(
         onPressed: () async {
