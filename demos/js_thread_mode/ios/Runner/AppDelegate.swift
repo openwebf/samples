@@ -24,6 +24,10 @@ import UIKit
                     // 执行相应操作
                     self?.createNewEngineWithoutGroup()
                     result(nil)
+                } else if call.method == "newDoubleEngine" {
+                    // 执行相应操作
+                    self?.newDoubleEngine()
+                    result(nil)
                 } else {
                     result(FlutterMethodNotImplemented)
                 }
@@ -59,8 +63,22 @@ import UIKit
         window?.rootViewController?.present(flutterVC, animated: true, completion: nil)
     }
     
+    private func newDoubleEngine() {
+        let newEngine1 = engineGroup?.makeEngine(withEntrypoint: "mainDoubleEngine", libraryURI: nil)
+        if ((newEngine1) != nil) {
+            GeneratedPluginRegistrant.register(with: newEngine1!)
+        }
+        let newEngine2 = engineGroup?.makeEngine(withEntrypoint: "mainDoubleEngine", libraryURI: nil)
+        if ((newEngine2) != nil) {
+            GeneratedPluginRegistrant.register(with: newEngine2!)
+        }
+        let flutterVC = WebFDoubleFlutterViewController(engine1: newEngine1!, engine2: newEngine2!)
+        window?.rootViewController?.present(flutterVC, animated: true, completion: nil)
+    }
+    
     private func destoryEngine(engineId: Int) {
         let flutterEngine = flutterEngines[engineId]
         flutterEngine?.destroyContext();
+        flutterEngines.removeValue(forKey: engineId)
     }
 }

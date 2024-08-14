@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		001078082C660B33005FA74A /* WebFFlutterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001078072C660B33005FA74A /* WebFFlutterViewController.swift */; };
+		00B9B3542C69FB9C00CA5A49 /* WebFDoubleFlutterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B9B3532C69FB9C00CA5A49 /* WebFDoubleFlutterViewController.swift */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		1568F40A0DDB1345025BA771 /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 872E661C9B11EA53E4D00FC2 /* Pods_RunnerTests.framework */; };
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		001078072C660B33005FA74A /* WebFFlutterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebFFlutterViewController.swift; sourceTree = "<group>"; };
+		00B9B3532C69FB9C00CA5A49 /* WebFDoubleFlutterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebFDoubleFlutterViewController.swift; sourceTree = "<group>"; };
 		036DF617EDBD2EEEC487B26C /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				74858FAE1ED2DC5600515810 /* AppDelegate.swift */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
 				001078072C660B33005FA74A /* WebFFlutterViewController.swift */,
+				00B9B3532C69FB9C00CA5A49 /* WebFDoubleFlutterViewController.swift */,
 			);
 			path = Runner;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00B9B3542C69FB9C00CA5A49 /* WebFDoubleFlutterViewController.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				001078082C660B33005FA74A /* WebFFlutterViewController.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
